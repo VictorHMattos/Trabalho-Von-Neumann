@@ -1,0 +1,27 @@
+#ifndef INTRUCOES_H
+#define INTRUCOES_H
+#include "ULA.h"
+
+class Intrucoes: public ULA
+{
+protected:
+    void carregarMQ(int x);  
+    void carrgarAC(int x);
+    void escreverMQ(int x);
+    void escreverAC(int x);
+    void copiarMQAC();
+    void copiarACMQ();
+    void desviar(int x);
+    void add(int x);
+    void sub(int x);
+    void mul(int x);
+    void div(int x);
+    void para();
+    void carrgarACenderecoMQ();
+    void escreverACenderecoMQ();
+    
+public:
+    Intrucoes();
+};
+
+#endif // INTRUCOES_H
