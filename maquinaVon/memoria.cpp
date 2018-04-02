@@ -7,7 +7,7 @@ Memoria::Memoria()
 
 void Memoria::inicializa(){
 
-    ifstream arquivo("/home/victor/Área de Trabalho/Trabalho-Von/Trabalho-Von-Neumann/maquinaVon/selection-sort-size-15.ias");
+    ifstream arquivo("/home/kryptus/Trabalho-Von-Neumann/maquinaVon/selection-sort-size-15.ias");
 
     try{
         if(!arquivo.is_open())
@@ -27,7 +27,6 @@ void Memoria::inicializa(){
             }
             else{
                 strncpy(memoria[index], str.c_str(), 8);
-
               }
 
             index++;
@@ -65,9 +64,9 @@ void Memoria::escrever(char *dado, int index){
     try{
 
         if(index < 0 && index >= 1000)
-            throw "Erro: index invalido";
+            throw "Erro: index invalido.";
 
-        if(strlen(dado) < 8)
+        if(strlen(dado) != 7)
             throw "Erro: O tamanho da palavra está incorreto";
 
         strncpy(memoria[index], dado, 8);
@@ -94,5 +93,4 @@ void Memoria::finalizar(){
         outfile << memoria[index] << endl;
 
     outfile.close();
-
 }

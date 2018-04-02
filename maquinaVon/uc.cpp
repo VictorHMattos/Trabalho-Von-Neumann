@@ -13,6 +13,8 @@ void UnitControl ::buscaInstrucao(){
 
     IR =  converteInt(ler(PC));
 
+    cout << "Instrução rodando: " << IR << endl;
+
     MAR = PC;
 
     PC++;
@@ -48,33 +50,41 @@ void  UnitControl::decodificaInstruacao(){
         break;
 
     case 200:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
+        PC  = converteInt(ler(MAR), false);
+
         break;
 
     case 205:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
+        if(AC < 0){
+            PC  = converteInt(ler(MAR), false);
+
+        }
+
         break;
+
     case 210:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
+        if(AC <= 0){
+            PC  = converteInt(ler(MAR), false);
+
+            }
         break;
 
     case 215:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
-
+        if(AC == 0){
+            PC  = converteInt(ler(MAR), false);
+        }
         break;
 
     case 220:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
+        if(AC > 0){
+            PC  = converteInt(ler(MAR), false);
+        }
         break;
 
     case 225:
-        IR  = converteInt(ler(PC), false);
-        PC  = IR;
+        if(AC >= 0){
+            PC  = converteInt(ler(MAR), false);
+        }
         break;
 
     case 300:

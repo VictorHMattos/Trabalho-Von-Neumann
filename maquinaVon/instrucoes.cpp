@@ -8,12 +8,8 @@ Instrucoes::Instrucoes()
 
 void Instrucoes::carregarMQ(int x){
    int aux = converteInt(ler(x), false);
-
-   cout << aux << endl;
-
    MQ = atoi(ler(aux));
 
-   cout << MQ << endl;
 }
 
 void Instrucoes::carregarAC(int x){
@@ -122,11 +118,26 @@ int Instrucoes::converteInt(string aux, bool isOpcode){
 
 char *Instrucoes::converteChar(int value){
     char *ret = new char[8];
-    string aux = std::to_string(value);
+    char auxC[4];
 
-    ret = (char*)"000\0";
+    if(value < 0)
+        ret[0] = '-';
 
-    strncat(ret, aux.c_str(), 3);
+    else
+        ret[0] = '+';
+
+    ret[1] = '0';
+    ret[2] = '0';
+    ret[3] = '0';
+    ret[4] = '\0';
+
+    auxC[0] = value / 100 + '0';
+    auxC[1] = value % 100 / 10 + '0';
+    auxC[2] = value % 100 % 10 + '0';
+    auxC[3] = '\0';
+
+
+    strncat(ret, auxC, 4);
 
    return ret;
 }
