@@ -5,8 +5,8 @@ using namespace std;
 
 int main(int argc, char *argv[]){
     if(argc < 2 || argc > 5){
-        cout << "Erro: Usange ./main <file_prog.ias> " << endl<< 
-                "Or ./main <file_prog.ias> -w -t <milleseconds> to show executing details  and use a time to execute instructions." << endl;
+        cout << "Erro: Usange ./main <file_prog.ias> " << endl << endl <<
+                "Or ./main <file_prog.ias> -w -t <milleseconds> to show executing details  and use a time to execute instructions." << endl << endl;
 
         exit(1);
     }
