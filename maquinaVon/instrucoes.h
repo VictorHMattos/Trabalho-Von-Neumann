@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "ULA.h"
+#include "ula.h"
 #include "memoria.h"
 
 
-class Instrucoes: public ULA, public Memoria{
+class Instrucoes: public Ula, public Memoria{
 protected:
     int  converteInt(string aux, bool isOpcode = true);
-    char *converteChar(int aux);
+    char *converteChar(int aux, int index);
     void carregarMQ(int x);
     void carregarAC(int x);
     void escreverMQ(int x);

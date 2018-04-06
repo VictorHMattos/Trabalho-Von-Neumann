@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
-#include <stdlib.h>
+#include <time.h>
 
 
 using namespace std;
@@ -16,9 +16,9 @@ class Memoria{
         void imprimeErro(const char* erro);
 
     protected:
-        void inicializa();
+        void inicializa(char *name);
         void finalizar();
-        const char* ler(int index);
+        char* ler(int index);
         void escrever(char* dado,int index);
 
 

@@ -2,76 +2,70 @@
 
 Instrucoes::Instrucoes()
 {
-   inicializa();
+   
 }
 
 
 void Instrucoes::carregarMQ(int x){
    int aux = converteInt(ler(x), false);
-   MQ = atoi(ler(aux));
+
+   MQ = converteInt(ler(aux), false);
 
 }
 
 void Instrucoes::carregarAC(int x){
     int aux = converteInt(ler(x), false);
 
-    AC = atoi(ler(aux));
+    AC = converteInt(ler(aux), false);
 }
 
 void Instrucoes::escreverMQ(int x){
+    int aux = converteInt(ler(x), false);
 
-    escrever(converteChar(MQ), converteInt(ler(x), false));
+    escrever(converteChar(MQ, aux), aux);
 }
 
 
 void Instrucoes::escreverAC(int x){
+    int aux = converteInt(ler(x), false);
 
-    escrever(converteChar(AC), converteInt(ler(x), false));
+    escrever(converteChar(AC, aux), aux);
 }
 
 
 void Instrucoes::copiarMQAC(){
-
     AC = MQ;
-
 }
 
 
 void Instrucoes::copiarACMQ(){
-
     MQ = AC;
 }
 
 
 
 void Instrucoes::add(int x){
-
-    AC += atoi(ler(converteInt(ler(x),false)));
+    AC += converteInt(ler(converteInt(ler(x),false)), false);
 }
 
 
 void Instrucoes::sub(int x){
-
-    AC -=  atoi(ler(converteInt(ler(x),false)));
+    AC -=  converteInt(ler(converteInt(ler(x),false)), false);
 }
 
 
 void Instrucoes::mul(int x){
-
-    AC = (atoi(ler(converteInt(ler(x),false))) * MQ);
+    AC = (converteInt(ler(converteInt(ler(x),false)), false) * MQ);
 }
 
 
 void Instrucoes::div(int x){
-
-    MQ = (atoi(ler(converteInt(ler(x),false))) / AC);
-    AC = (atoi(ler(converteInt(ler(x),false))) % MQ);
+    MQ = (converteInt(ler(converteInt(ler(x),false)), false) / AC);
+    AC = (converteInt(ler(converteInt(ler(x),false)), false) % MQ);
 }
 
 
 void Instrucoes::parar(){
-
-
     finalizar();
 
     exit(0);
@@ -80,12 +74,12 @@ void Instrucoes::parar(){
 
 
 void Instrucoes::carregarACenderecoMQ(){
-    AC = atoi(ler(MQ));
+    AC = converteInt(ler(MQ), false);
 }
 
 
 void Instrucoes::escreverACenderecoMQ(){
-    escrever(converteChar(AC), MQ);
+    escrever(converteChar(AC, MQ), MQ);
 }
 
 
@@ -94,50 +88,62 @@ int Instrucoes::converteInt(string aux, bool isOpcode){
     int ret;
 
     if(isOpcode){
-
-        ret =  (aux[1] - '0')*100;
-        ret += (aux[2] - '0')*10;
-        ret += (aux[3] - '0');
-
-    }else{
-
-        ret =  (aux[4] - '0')*100;
-        ret += (aux[5] - '0')*10;
-        ret += (aux[6] - '0');
-
-        if(aux[0]== '-')
-        {
-            ret *= -1;
+        if(aux[0] == '-'){
+            ret =  (aux[1] - '0')*100;
+            ret += (aux[2] - '0')*10;
+            ret += (aux[3] - '0');
+        
+        }else{
+            ret =  (aux[0] - '0')*100;
+            ret += (aux[1] - '0')*10;
+            ret += (aux[2] - '0');
         }
 
+    }else{
+        if(aux[0] == '-'){
+            ret =  (aux[4] - '0')*100;
+            ret += (aux[5] - '0')*10;
+            ret += (aux[6] - '0');
+            ret *= -1;
+        
+        }else{
+            ret =  (aux[3] - '0')*100;
+            ret += (aux[4] - '0')*10;
+            ret += (aux[5] - '0');
+        }
+        
     }
 
     return ret;
 }
 
 
-char *Instrucoes::converteChar(int value){
+char *Instrucoes::converteChar(int valueData, int index){
     char *ret = new char[8];
-    char auxC[4];
+    char aux[4];
+    char *aux2 = ler(index);
 
-    if(value < 0)
-        ret[0] = '-';
+    if(aux2[0] == '-'){
+        ret[0] = aux2[0];
+        ret[1] = aux2[1];
+        ret[2] = aux2[2];
+        ret[3] = aux2[3];
+        ret[4] = '\0';
+    
+    }else{
+        ret[0] = aux2[0];
+        ret[1] = aux2[1];
+        ret[2] = aux2[2];
+        ret[3] = '\0';
+    }
 
-    else
-        ret[0] = '+';
-
-    ret[1] = '0';
-    ret[2] = '0';
-    ret[3] = '0';
-    ret[4] = '\0';
-
-    auxC[0] = value / 100 + '0';
-    auxC[1] = value % 100 / 10 + '0';
-    auxC[2] = value % 100 % 10 + '0';
-    auxC[3] = '\0';
+    aux[0] = valueData / 100 + '0';
+    aux[1] = valueData % 100 / 10 + '0';
+    aux[2] = valueData % 100 % 10 + '0';
+    aux[3] = '\0';
 
 
-    strncat(ret, auxC, 4);
+    strncat(ret, aux, 4);
 
    return ret;
 }

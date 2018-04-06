@@ -1,26 +1,50 @@
 #include "uc.h"
 
-UnitControl::UnitControl()
-{
-    PC  = 0;
-    IR  = 0;
-    MAR = 0;
 
-    buscaInstrucao();
+UnitControl::UnitControl(char *name){
+    PC    = 0;
+    IR    = 0;
+    MAR   = 0;
+
+    inicializa(name);
 }
+
+
+void UnitControl::init(bool isShow, int timeT){
+
+    if(timeT && isShow)
+        while(true){
+            show();
+            buscaInstrucao();
+            usleep(timeT);
+            decodificaInstruacao();
+        }
+
+    else 
+        if(isShow)
+            while(true){
+                show();
+                buscaInstrucao();                
+                decodificaInstruacao();
+            }
+
+        else
+            while(true){
+                buscaInstrucao();
+                decodificaInstruacao();
+            }
+}
+
 
 void UnitControl ::buscaInstrucao(){
 
     IR =  converteInt(ler(PC));
 
-    cout << "Instrução rodando: " << IR << endl;
-
     MAR = PC;
 
-    PC++;
-
-    decodificaInstruacao();
+    PC++;    
 }
+
 
 void  UnitControl::decodificaInstruacao(){
 
@@ -57,7 +81,6 @@ void  UnitControl::decodificaInstruacao(){
     case 205:
         if(AC < 0){
             PC  = converteInt(ler(MAR), false);
-
         }
 
         break;
@@ -65,8 +88,7 @@ void  UnitControl::decodificaInstruacao(){
     case 210:
         if(AC <= 0){
             PC  = converteInt(ler(MAR), false);
-
-            }
+        }
         break;
 
     case 215:
@@ -105,6 +127,7 @@ void  UnitControl::decodificaInstruacao(){
         break;
 
     case 400:
+        show();
         parar();
         break;
 
@@ -119,7 +142,16 @@ void  UnitControl::decodificaInstruacao(){
     default:
         break;
     }
+}
 
-    buscaInstrucao();
+
+void UnitControl::show(){
+    cout << "\e[1;1H\e[2J" << endl;
+    cout << "IR   " << IR << endl; 
+    cout << "PC   " << PC << endl;
+    cout << "MAR  " << MAR << endl;
+    cout << "AC   " << AC << endl;
+    cout << "MQ   " << MQ << endl;
+    cout << "Dado " << ler(MAR) << endl;
 }
 
